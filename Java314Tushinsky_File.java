@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -46,6 +47,7 @@ public class Java314Tushinsky_File {
             System.out.println("Поиск запрещённых слов в файле");
             searchForbiddenWords();
         } catch (IOException e) {
+            scanner.close();
             throw new RuntimeException(e);
         }
 
@@ -190,13 +192,16 @@ public class Java314Tushinsky_File {
     
     private static void searchForbiddenWords() throws FileNotFoundException, 
             UnsupportedEncodingException, IOException {
+        BufferedReader inp = new BufferedReader(new InputStreamReader(System.in, "Windows-1251"));
         System.out.println("Введите путь к файлу:");
-        String filename = scanner.next();
+        String filename = inp.readLine();
         File file = new File(filename);
         StringBuilder builder = new StringBuilder();
         if (file.exists()) {
+            
             System.out.println("Введите перечень запрещённых слов, разделяя их точкой с запятой:");
-            String[] forbidden = scanner.next().split(";");// массив запрещённых слов
+            String[] forbidden = inp.readLine().split(";");// массив запрещённых слов
+            System.out.println(Arrays.toString(forbidden));
             System.out.println("Введите путь к новому файлу:");
             String newfilename = scanner.next();
             File newfile = new File(newfilename);
